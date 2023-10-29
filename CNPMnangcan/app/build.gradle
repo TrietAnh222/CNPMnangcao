@@ -5,12 +5,12 @@ apply plugin: "realm-android"
 
 android {
     namespace 'com.example.cnpmnangcan'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.cnpmnangcan"
         minSdk 22
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -28,7 +28,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
+realm {
+    syncEnabled = true
+}
 dependencies {
     implementation 'io.realm:realm-gradle-plugin:10.11.0'
     implementation 'androidx.core:core-ktx:1.7.0'
