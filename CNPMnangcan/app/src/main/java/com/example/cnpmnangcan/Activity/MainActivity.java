@@ -1,4 +1,4 @@
-package com.example.cnpmnangcan;
+package com.example.cnpmnangcan.Activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.cnpmnangcan.R;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import io.realm.mongodb.AppConfiguration;
 
 
 public class MainActivity extends AppCompatActivity {
-    String Appid = "data-nhbur";
+    String Appid = "application-0-gdlob";
     Toolbar toolbar;
     ViewFlipper viewFlipper;
     RecyclerView recyclerViewManHinhChinh;
