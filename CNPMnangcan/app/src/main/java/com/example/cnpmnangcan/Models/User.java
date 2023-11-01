@@ -4,8 +4,7 @@ import org.bson.types.ObjectId;
 
 import io.realm.RealmObject;
 
-public class UserModel extends RealmObject {
-    public class User {
+public class User extends RealmObject {
         private ObjectId id;
         private String Name;
         private String Email;
@@ -91,5 +90,4 @@ public class UserModel extends RealmObject {
         public void setCity(String city) {
             City = city;
         }
-    }
 }
