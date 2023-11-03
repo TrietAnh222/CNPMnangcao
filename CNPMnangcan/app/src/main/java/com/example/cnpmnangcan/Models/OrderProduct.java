@@ -2,9 +2,7 @@ package com.example.cnpmnangcan.Models;
 
 import java.util.Date;
 import java.util.List;
-
-import io.realm.RealmObject;
-public class OrderProduct extends RealmObject {
+public class OrderProduct{
     public class Order {
         private List<OrderItem> orderItems;
         private ShippingAddress shippingAddress;

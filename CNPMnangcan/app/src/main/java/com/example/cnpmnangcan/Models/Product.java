@@ -2,10 +2,8 @@ package com.example.cnpmnangcan.Models;
 
 import org.bson.types.ObjectId;
 
-import io.realm.RealmObject;
 
-
-    public class Product  extends RealmObject {
+    public class Product {
         private ObjectId id;
         private String name;
         private String image;

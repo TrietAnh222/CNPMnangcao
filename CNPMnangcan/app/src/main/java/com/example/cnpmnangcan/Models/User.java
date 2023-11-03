@@ -2,9 +2,7 @@ package com.example.cnpmnangcan.Models;
 
 import org.bson.types.ObjectId;
 
-import io.realm.RealmObject;
-
-public class User extends RealmObject {
+public class User{
         private ObjectId id;
         private String Name;
         private String Email;
