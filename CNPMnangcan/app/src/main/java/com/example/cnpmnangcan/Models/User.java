@@ -1,9 +1,7 @@
 package com.example.cnpmnangcan.Models;
 
-import org.bson.types.ObjectId;
-
 public class User{
-        private ObjectId id;
+
         private String Name;
         private String Email;
         private String Password;
@@ -13,8 +11,7 @@ public class User{
         private String Avatar;
         private String City;
 
-        public User(ObjectId id, String name, String email, String password, boolean isadmin, Number phone, String address, String avatar, String city) {
-            this.id = id;
+        public User(String name, String email, String password, boolean isadmin, Number phone, String address, String avatar, String city) {
             Name = name;
             Email = email;
             Password = password;

@@ -6,12 +6,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -27,12 +29,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    private List<Product> productList;
     Toolbar toolbar;
     ViewFlipper viewFlipper;
     RecyclerView recyclerViewManHinhChinh;
@@ -44,31 +44,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //gọi retrofit
-        //E/RecyclerView: No adapter attached; skipping layout còn lỗi này
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:3001/api/product/").addConverterFactory(GsonConverterFactory.create())
-                        .build();
-        // Khởi tạo Retrofit Service
-        APIservices myapi= retrofit.create(APIservices.class);
         // Thực hiện cuộc gọi API
-        Call<List<Product>> call = myapi.fetchData();
+        Call<List<Product>> call = APIservices.myapi.Fetchdata();
+        //đã gọi dc thành công nhưng response bị rỗng nên không chạy dc ae tìm hiểu giúp tui
         call.enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if(response.isSuccessful()){
-                    List<Product> productList =response.body();
-                    //gọi adapter
-                    ProductAdapter adapter = new ProductAdapter(productList,MainActivity.this);
-                    recyclerViewManHinhChinh.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
+           @Override
+           public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+               Toast.makeText(MainActivity.this, "call Thanh cong", Toast.LENGTH_SHORT).show();
+               productList =  response.body();
+               ProductAdapter productAdapter = new ProductAdapter(productList,MainActivity.this);
+               recyclerViewManHinhChinh.setAdapter(productAdapter);
+           }
 
-            }
-        });
+           @Override
+           public void onFailure(Call<List<Product>> call, Throwable t) {
+
+           }
+       });
+
         KhaiBao();
         ActionBar();
         ActionViewFilpper();
@@ -111,5 +104,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationview);
         listViewmanhinhchinh = findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = findViewById(R.id.drawerLayout);
+        recyclerViewManHinhChinh.setLayoutManager(new LinearLayoutManager(MainActivity.this));
     }
 }

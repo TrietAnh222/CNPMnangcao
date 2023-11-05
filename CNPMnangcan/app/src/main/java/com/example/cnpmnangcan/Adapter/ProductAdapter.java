@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.cnpmnangcan.Models.Product;
 import com.example.cnpmnangcan.R;
 
@@ -39,7 +40,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.nameTextView.setText(product.getName());
         holder.priceTextView.setText(String.valueOf(product.getPrice()));
         //glide
-        //xử lý image sau
+        Glide.with(context).load(product.getImage()).into(holder.imageView);
+
 
     }
 

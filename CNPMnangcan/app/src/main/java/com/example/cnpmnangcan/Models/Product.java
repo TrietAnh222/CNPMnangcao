@@ -1,10 +1,9 @@
 package com.example.cnpmnangcan.Models;
 
-import org.bson.types.ObjectId;
+import java.util.ArrayList;
 
-
-    public class Product {
-        private ObjectId id;
+public class Product extends ArrayList<Product> {
+        private String id;
         private String name;
         private String image;
         private String type;
@@ -15,20 +14,29 @@ import org.bson.types.ObjectId;
         private Number Discount;
         private Number Selled;
 
-        public Product(ObjectId id, String name, String image, String type, Number price, Number countInStock, Number rating, String description, Number discount, Number selled) {
-            this.id = id;
-            this.name = name;
-            this.image = image;
-            this.type = type;
-            this.price = price;
-            CountInStock = countInStock;
-            this.rating = rating;
-            Description = description;
-            Discount = discount;
-            Selled = selled;
-        }
 
-        public String getName() {
+    public Product(String id, String name, String image, String type, Number price, Number countInStock, Number rating, String description, Number discount, Number selled) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.type = type;
+        this.price = price;
+        CountInStock = countInStock;
+        this.rating = rating;
+        Description = description;
+        Discount = discount;
+        Selled = selled;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
             return name;
         }
 
