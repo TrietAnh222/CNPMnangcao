@@ -12,17 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.cnpmnangcan.Models.Product;
+import com.example.cnpmnangcan.Models.ProductModel;
 import com.example.cnpmnangcan.R;
-
-import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
-    private List<Product> productList;
-    private Context context;
+    private final ProductModel productList;
+    private final Context context;
 
-    public ProductAdapter(List<Product> productList, Context context) {
+    public ProductAdapter(ProductModel productList, Context context) {
         this.productList = productList;
         this.context = context;
     }
@@ -36,7 +34,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product = productList.get(position);
+        ProductModel.Product product = productList.getData().get(position);
         holder.nameTextView.setText(product.getName());
         holder.priceTextView.setText(String.valueOf(product.getPrice()));
         //glide
@@ -47,10 +45,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return productList.getData().size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         TextView priceTextView;
         ImageView imageView;

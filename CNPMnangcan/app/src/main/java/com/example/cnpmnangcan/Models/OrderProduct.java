@@ -111,7 +111,7 @@ public class OrderProduct{
         private String image;
         private double price;
         private Double discount;
-        private Product product;
+        private ProductModel.Product product;
 
         // Getters và setters cho các trường
 
@@ -155,11 +155,11 @@ public class OrderProduct{
             this.discount = discount;
         }
 
-        public Product getProduct() {
+        public ProductModel.Product getProduct() {
             return product;
         }
 
-        public void setProduct(Product product) {
+        public void setProduct(ProductModel.Product product) {
             this.product = product;
         }
     }

@@ -1,6 +1,7 @@
 package com.example.cnpmnangcan.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.cnpmnangcan.APIservices;
 import com.example.cnpmnangcan.Adapter.ProductAdapter;
-import com.example.cnpmnangcan.Models.Product;
+import com.example.cnpmnangcan.Models.ProductModel;
 import com.example.cnpmnangcan.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -32,7 +33,7 @@ import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
-    private List<Product> productList;
+
     Toolbar toolbar;
     ViewFlipper viewFlipper;
     RecyclerView recyclerViewManHinhChinh;
@@ -45,22 +46,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Thực hiện cuộc gọi API
-        Call<List<Product>> call = APIservices.myapi.Fetchdata();
+        Call<ProductModel> call = APIservices.myapi.Getdata();
         //đã gọi dc thành công nhưng response bị rỗng nên không chạy dc ae tìm hiểu giúp tui
-        call.enqueue(new Callback<List<Product>>() {
-           @Override
-           public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-               Toast.makeText(MainActivity.this, "call Thanh cong", Toast.LENGTH_SHORT).show();
-               productList =  response.body();
-               ProductAdapter productAdapter = new ProductAdapter(productList,MainActivity.this);
-               recyclerViewManHinhChinh.setAdapter(productAdapter);
-           }
+        call.enqueue(new Callback<ProductModel>() {
+            @Override
+            public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+                if (response != null && response.isSuccessful() && response.body() != null) {
+                    ProductModel productModel= response.body();
+                    ProductAdapter productAdapter = new ProductAdapter(productModel, MainActivity.this);
+                    recyclerViewManHinhChinh.setAdapter(productAdapter);
+                } else {
+                    int errorcode =response.code();
+                    Log.e("APIerror" , "Error code" + errorcode);
+                    Toast.makeText(MainActivity.this, "Dữ liệu không hợp lệ hoặc rỗng", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-           @Override
-           public void onFailure(Call<List<Product>> call, Throwable t) {
-
-           }
-       });
+            @Override
+            public void onFailure(Call<ProductModel> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "call fail", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         KhaiBao();
         ActionBar();
